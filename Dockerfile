@@ -26,6 +26,8 @@ WORKDIR /inn-${VERSION}
 RUN ./configure --with-zlib
 RUN make
 RUN sed -i 's/#domain:/domain: news.localhost/' site/inn.conf && \
+    mkdir -p /var/lib/news && \
+    echo -e "local.general\tLocal general" >> /var/lib/news/newsgroups && \
     make install
 
 WORKDIR /usr/local/news
