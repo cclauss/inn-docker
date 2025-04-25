@@ -14,7 +14,7 @@ Ensure that the Docker network allows bidirectional communications.
 docker exec -it inn-server-a ping -c 2 inn-server-b
 docker exec -it inn-server-b ping -c 2 inn-server-a
 ```
-Add config to the end of `etc/incoming.conf` and `etc/newsfeeds`.
+Add config to the end of `etc/incoming.conf`, `etc/innfeed.conf`, and `etc/newsfeeds`.
 Create a `my.public` newsgroup and tail key files.
 Run `ctlinnd reload '' 'Reload configuration files'`
 ```sh
@@ -28,5 +28,13 @@ docker exec -it inn-server-a cat db/active
 Check to see if the articles have been synced over to inn-server-b.
 ```sh
 docker exec -it inn-server-b cat db/active
+```
+This will say that the config file is OK.
 ```sh
+docker exec -it inn-server-a innfeed -C
+```
+This will generate a Segmentation fault!
+```sh
+docker exec -it inn-server-a innfeed
+```
 ## ___Unfortunately___ the articles are never synced between the two servers.
